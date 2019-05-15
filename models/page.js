@@ -16,12 +16,14 @@ const Page = db.define('page',{
       type: Sequelize.TEXT,
       allowNull: false
     },
-    status:{ //page is open or closed
-      type: Sequelize.ENUM("open", "closed")
-    },
+    // status:{ //page is open or closed
+    //   type: Sequelize.ENUM("open", "closed"),
+    //   allowNull: false
+    // },
     tags: {
-      type: Sequelize.ARRAY(Sequelize.TEXT) // an array of text strings (Postgres only)
-      //defaultValue: []
+      type: Sequelize.ARRAY(Sequelize.TEXT), // an array of text strings (Postgres only)
+      defaultValue: [],
+      allowNull: false
     },
   });
   
@@ -56,7 +58,6 @@ const Page = db.define('page',{
     return title.replace(/\s+/g, '_').replace(/\W/g, '');
   }
   
-
-  module.exports = Page
+module.exports = Page
 
   

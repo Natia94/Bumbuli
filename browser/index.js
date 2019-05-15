@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import Main from './components/Main';
+import Main from './components/Main';
 import ArticleForm from './components/ArticleForm';
+import Article from './components/Article';
 
-ReactDOM.render(<ArticleForm />, document.getElementById('app'));
-//console.log("WIKI")
+ReactDOM.render(<Main />, document.getElementById('app'));
+

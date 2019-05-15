@@ -5,6 +5,7 @@ const Page = require("../models/page")
 const User = require("../models/user")
 
 router.get('/', async(req, res, next) => {
+    //console.log('Hi')
     try{
         const pages = await Page.findAll()
         res.send(pages)
@@ -20,19 +21,19 @@ router.post('/', async (req, res, next) => {
             where:{
                 name: req.body.name,
                 email: req.body.email
-            
             }
         })
         await page.save();
         page.setAuthor(user)
         res.redirect(`/wiki/${page.slug}`);
+        //console.log ('Natia')
     } catch (error) { next(error) }
     
 });
 
-router.get("/add", (req, res, next) => {
-    res.send(addPage())
-})
+// router.get("/add", (req, res, next) => {
+//     res.send()
+// })
 
 //searches pages by tags
 router.get("/search", async (req, res, next) => {
@@ -44,18 +45,33 @@ router.get("/search", async (req, res, next) => {
 
 //finds an article by slug/title
 router.get('/:slug', async(req, res, next) => {
+    console.log('insi')
     try{
-        const page = await Page.findOne({
-            where:{
-                slug: req.params.slug //first slug is column in database, req.params.slug is slug URI
-            }
+        let pageArr = await Page.findOrCreate({
+            //include: [{ model: User,
+                where:{
+                    slug: req.params.slug,   
+                },
+                //include : [User]
+           // }]
         })
+
+        const page = pageArr[0]
+        
         if(page===null){
             res.sendStatus(404)
         }
-        const author = await page.getAuthor()
-        //console.log('author=>', author) //works
-        res.send(wikiPage(page, author))
+        try{
+            const author = await page.getAuthor()
+            res.send({ page, author })
+
+            //page[author] = author
+        } catch (err){
+            next(err)
+        }
+        
+        // console.log('author = > ', author) //works
+        res.send(page)
     }catch(err){
         next(err)
     }
@@ -80,8 +96,6 @@ router.get('/:slug/edit', async(req, res, next)=>{
         next(err)
     }
 })
-
-
 
 router.post("/:slug", async (req, res, next) => { //put
     try {

@@ -10,12 +10,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
     "babel-loader": "^8.0.5",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^2.1.1",
     "nodemon": "^1.18.10",
     "style-loader": "^0.23.1",
@@ -25,6 +22,10 @@
   },
   "dependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "@babel/preset-react": "^7.0.0",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
     "express": "^4.16.4",
     "html-template-tag": "^3.1.0",
     "marked": "^0.6.2",
@@ -33,7 +34,9 @@
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "response": "^0.18.0",
     "sequelize": "^5.7.5"
   }

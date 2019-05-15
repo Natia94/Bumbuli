@@ -21,7 +21,7 @@ router.get("/:userId", async(req, res, next)=>{
                 id: req.params.userId
             }
         })
-        //console.log("user =>", user)
+        console.log("user =>", user)
         const pages = await Page.findAll({
             where:{
                 authorId: req.params.userId
@@ -29,7 +29,7 @@ router.get("/:userId", async(req, res, next)=>{
         })
         // const pages = await user.getPages() // returns a promise for the pug's owner
         console.log('pages=>', pages)
-        res.send(userPages(user, pages))
+        res.send(user)
     }catch(err){
         next(err)
     }

@@ -1,5 +1,8 @@
 import React,{Component} from 'react'
 import axios from 'axios'
+import {Button} from 'react-bootstrap'
+import {Form} from 'react-bootstrap'
+
 
 export default class ArticleForm extends Component {
 
@@ -19,14 +22,21 @@ export default class ArticleForm extends Component {
     }
 
     handleChange (event) {
-        this.setState = ({
-            [event.target.name] : event.target.value
-        })
+
+        this.setState({
+            [event.target.name]: event.target.value
+        });
         
     }
 
     async addArticle (newPost){
-        await axios.post ('/wiki', newPost)
+        console.log('hi')
+        try{
+            await axios.post('/wiki', newPost)
+        }catch (err){
+            console.log(err)
+        }
+        console.log('bye')
     }
 
     handleSubmit (event){
@@ -44,8 +54,8 @@ export default class ArticleForm extends Component {
     render(){
         return(
         <div>
-        <h1> Fill out the form</h1>
-        <form onSubmit={this.handleSubmit}>
+        
+        {/* <form onSubmit={this.handleSubmit}>
 
             <label>
             Name: 
@@ -99,8 +109,66 @@ export default class ArticleForm extends Component {
 
             <button type="submit">Submit New Student</button>
 
-        </form>
-        </div>
+        </form> 
+         */}
+
+        <Form onSubmit={this.handleSubmit} className = "container">
+            <Form.Group controlId="formGroupName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control  
+                    type="text" placeholder="Enter Name" 
+                    name="name"
+                    onChange = {this.handleChange}
+                    value = {this.state.name}
+                />
+            
+            </Form.Group>
+
+            <Form.Group controlId="formGroupEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control  
+                    
+                    type="email" placeholder="Enter Password" 
+                    name="email"
+                    onChange = {this.handleChange}
+                    value = {this.state.email}
+                />
+            </Form.Group>
+
+            <Form.Group controlId="formGroupTitle">
+                <Form.Label>Title</Form.Label>
+                <Form.Control  
+                    type="text" placeholder="Enter Title" 
+                    name="title"
+                    onChange = {this.handleChange}
+                    value = {this.state.title}
+                />
+            </Form.Group>
+            <Form.Group controlId="formGroupTags">
+                <Form.Label>Tags</Form.Label>
+                <Form.Control  
+                    type="text" placeholder="Enter Tags" 
+                    name="tags" 
+                    onChange = {this.handleChange}
+                    value = {this.state.tags}
+                />
+            </Form.Group>
+            
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Form.Label>Content</Form.Label>
+                <Form.Control as="textarea" rows="3" 
+                    type="text"
+                    name="content"
+                    onChange = {this.handleChange}
+                    value = {this.state.content}
+                />
+            </Form.Group>
+
+            <Button variant="info" type="submit">Submit</Button>
+
+        </Form>
+
+    </div>
 
         )
     }
