@@ -22,7 +22,7 @@ const Page = db.define('page',{
     // },
     tags: {
       type: Sequelize.ARRAY(Sequelize.TEXT), // an array of text strings (Postgres only)
-      defaultValue: [],
+      //defaultValue: [],
       allowNull: false
     },
   });
@@ -34,16 +34,17 @@ const Page = db.define('page',{
       }
     });
   }
-  //I need before create hook, it will come as as sting and I need to convert it as an array of strings
-  Page.beforeValidate(page => {
-  
-    if (typeof page.tags === "string") {
-      page.tags = page.tags.split(" ").map(str => str.trim());
-      console.log("Validated tags",page.tags)
-    }
-  });
 
+  function generateSlug (title) {
+    // Removes all non-alphanumeric characters from title
+    // And make whitespace underscore
+    console.log('title', title )
+    return title
+    //.replace(/\s+/g, '_').replace(/\W/g, '');
+  }
+  
   Page.beforeValidate((pageInstance) => {
+    console.log('hit befire validate')
   
     pageInstance.slug = generateSlug(pageInstance.title)
   
@@ -52,12 +53,15 @@ const Page = db.define('page',{
     // instead of returning it from the function.
   })
 
-  function generateSlug (title) {
-    // Removes all non-alphanumeric characters from title
-    // And make whitespace underscore
-    return title.replace(/\s+/g, '_').replace(/\W/g, '');
-  }
+    //I need before create hook, it will come as as sting and I need to convert it as an array of strings
+    // Page.beforeCreate(page => {
   
+    //   if (typeof page.tags === "string") {
+    //     page.tags = page.tags.split(" ").map(str => str.trim());
+    //     console.log("Validated tags", page.tags)
+    //   }
+    // });
+
 module.exports = Page
 
   

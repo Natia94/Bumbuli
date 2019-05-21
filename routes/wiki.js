@@ -15,8 +15,9 @@ router.get('/', async(req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-    const page = await Page.create(req.body);
+   
     try {
+        const page = await Page.create(req.body);
         const [user] = await User.findOrCreate({
             where:{
                 name: req.body.name,
@@ -25,7 +26,7 @@ router.post('/', async (req, res, next) => {
         })
         await page.save();
         page.setAuthor(user)
-        res.redirect(`/wiki/${page.slug}`);
+        //res.redirect(`/wiki/${page.slug}`);
         //console.log ('Natia')
     } catch (error) { next(error) }
     
@@ -48,12 +49,9 @@ router.get('/:slug', async(req, res, next) => {
     console.log('insi')
     try{
         let pageArr = await Page.findOrCreate({
-            //include: [{ model: User,
-                where:{
-                    slug: req.params.slug,   
-                },
-                //include : [User]
-           // }]
+            where:{
+                slug: req.params.slug,   
+            },
         })
 
         const page = pageArr[0]
@@ -63,15 +61,12 @@ router.get('/:slug', async(req, res, next) => {
         }
         try{
             const author = await page.getAuthor()
+            console.log('got inside nested try block')
             res.send({ page, author })
-
-            //page[author] = author
         } catch (err){
             next(err)
         }
         
-        // console.log('author = > ', author) //works
-        res.send(page)
     }catch(err){
         next(err)
     }
@@ -97,29 +92,29 @@ router.get('/:slug/edit', async(req, res, next)=>{
     }
 })
 
-router.post("/:slug", async (req, res, next) => { //put
+router.put("/:slug", async (req, res, next) => { //put
     try {
-      const [updatedRowCount, updatedPages] = await Page.update(req.body, {
+      await Page.update(req.body, {
         where: {
           slug: req.params.slug
         },
         returning: true, // needed for affectedRows to be populated
        // plain: true // makes sure that the returned instances are just plain objects => causing problems with editing
       });
-      res.redirect("/wiki/" + updatedPages[0].slug);
+      //res.redirect("/wiki/" + updatedPages[0].slug);
     } catch (error) { next(error) }
 });
 
 
-router.get("/:slug/delete", async (req, res, next) => {
+router.delete("/:slug/delete", async (req, res, next) => {
     try {
         await Page.destroy({
             where: {
               slug: req.params.slug 
             }
         })
-        res.redirect("/wiki");
-    }catch(err){
+        //console.log('req.params.slug', req.params.slug)
+    } catch (err){
         next(err)
     }
 })

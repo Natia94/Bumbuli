@@ -14,6 +14,7 @@ router.get('/', async (req, res, next) => {
 
 });
 
+
 router.get("/:userId", async(req, res, next)=>{
     try{
         const user = await User.findOne({
@@ -21,15 +22,15 @@ router.get("/:userId", async(req, res, next)=>{
                 id: req.params.userId
             }
         })
-        console.log("user =>", user)
+        //console.log("user =>", user) //works
+
         const pages = await Page.findAll({
             where:{
-                authorId: req.params.userId
+                AuthorId: req.params.userId
             }
         })
-        // const pages = await user.getPages() // returns a promise for the pug's owner
-        console.log('pages=>', pages)
-        res.send(user)
+        //console.log('pages=>', pages) //works
+        res.send({user, pages})
     }catch(err){
         next(err)
     }

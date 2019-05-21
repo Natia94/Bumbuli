@@ -1,20 +1,34 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, {Component} from 'react'
+import axios from 'axios'
+import ArticleItem from './ArticleItem'
 
-const ArticleList = (props) => {
-    const data = props.data
-    return(
-        <div id='stories' className='column'>
-        {
-          data.map(story => (
-            <div>
-                <Link to ={`/wiki/${slugName}`}>
-                    <h3>{title}</h3>
-                </Link>
-            </div>
-            ))
+export default class ArticleList extends Component {
+    constructor () {
+        super ()
+        this.state = {
+            article: []
         }
-    </div>
-    )
+    }
+
+    async componentDidMount () {
+        const response = await axios.get(`/wiki`)
+        const data = response.data
+        this.setState({ article: data }) 
+    }
+    
+    render () {
+        const articleItems = this.state.article.map((article => {
+            return (
+                <ArticleItem key={article.id} article = {article} />
+            )
+        }))
+
+        return (
+          
+            <div>
+                <h1>ArticleList</h1>
+                <ul className = "collection">{articleItems}</ul>
+            </div>
+        )
+    }
 }
-export default ArticleList

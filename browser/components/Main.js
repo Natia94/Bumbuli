@@ -1,31 +1,25 @@
 import React from 'react'
-import {HashRouter as Router, Route } from 'react-router-dom'
-import Navbar from './Navbar'
-import Footer from './Footer'
-import ArticleForm from './ArticleForm'
-import Article from './Article'
+import {Switch, Route } from 'react-router-dom'
+import ArticleDetails from './ArticleDetails'
+import ArticleList from './ArticleList'
+import EditForm from './EditForm'
+import AuthorsList from './AuthorsList';
+import FilteredArticles from './FilteredArticles'
+import CreateArticle from './CreateArticle';
 
 export default class Main extends React.Component {
   render () {
     return (
-      <Router>
-        <div id='main'>
-          <div className='column container'>
-
-            <div id='header'>
-              <h1>BumBuli</h1>
-            </div>
-
-          <Navbar />
-
-          </div>
-          {/* write an article */}
-            <Route exact path='/add' component={ArticleForm}/>
-            <Route exact path='/wiki/:slug' component={Article}/>
-        </div>
-          
-        <Footer />
-      </Router> 
+      <main>
+        <Switch>
+          <Route exact path='/' component={ArticleList} />
+          <Route exact path='/wiki/add' component={CreateArticle}/>
+          <Route exact path='/wiki/authors' component={AuthorsList}/>
+          <Route exact path='/authors/:userId' component={FilteredArticles}/>
+          <Route exact path='/wiki/:slug' component={ArticleDetails}/>
+          <Route exact path='/wiki/edit/:slug' component={EditForm}/>
+        </Switch> 
+      </main>
     )
   }
 }
