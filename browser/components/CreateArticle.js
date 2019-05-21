@@ -12,8 +12,7 @@ export default class CreateArticle extends Component {
                 email:'',
                 title:'',
                 tags:'',
-                content:'',
-                newPost: []
+                content:''
             }
 
         this.handleChange = this.handleChange.bind(this)
