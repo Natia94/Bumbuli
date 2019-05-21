@@ -12,8 +12,8 @@ export default class Main extends React.Component {
     return (
       <main>
         <Switch>
-          <Route exact path='/' component={ArticleList} />
-          <Route exact path='/wiki/add' component={CreateArticle}/>
+          <Route exact path='/' component={CreateArticle} />
+          <Route exact path='/wiki/add' component={ArticleList}/>
           <Route exact path='/wiki/authors' component={AuthorsList}/>
           <Route exact path='/authors/:userId' component={FilteredArticles}/>
           <Route exact path='/wiki/:slug' component={ArticleDetails}/>

@@ -5,7 +5,7 @@ const Page = require("../models/page")
 const User = require("../models/user")
 
 router.get('/', async(req, res, next) => {
-    //console.log('Hi')
+    
     try{
         const pages = await Page.findAll()
         res.send(pages)
@@ -15,7 +15,6 @@ router.get('/', async(req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-   
     try {
         const page = await Page.create(req.body);
         const [user] = await User.findOrCreate({
@@ -26,15 +25,9 @@ router.post('/', async (req, res, next) => {
         })
         await page.save();
         page.setAuthor(user)
-        //res.redirect(`/wiki/${page.slug}`);
-        //console.log ('Natia')
     } catch (error) { next(error) }
     
 });
-
-// router.get("/add", (req, res, next) => {
-//     res.send()
-// })
 
 //searches pages by tags
 router.get("/search", async (req, res, next) => {

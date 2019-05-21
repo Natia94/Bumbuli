@@ -6,18 +6,27 @@ export default class ArticleList extends Component {
     constructor () {
         super ()
         this.state = {
-            article: []
+            articles: []
         }
+        this.addArticle = this.addArticle.bind(this)
     }
 
     async componentDidMount () {
         const response = await axios.get(`/wiki`)
         const data = response.data
-        this.setState({ article: data }) 
+        this.setState({ articles: data }) 
+    }
+
+    addArticle (newArticle){
+        //I can not mutate the state so...
+        this.setState({
+            articles:[...this.state.articles, newArticle]
+        })
     }
     
     render () {
-        const articleItems = this.state.article.map((article => {
+        //console.log(this.state.articles)
+        const articleItems = this.state.articles.map((article => {
             return (
                 <ArticleItem key={article.id} article = {article} />
             )

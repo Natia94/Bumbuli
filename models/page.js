@@ -39,8 +39,7 @@ const Page = db.define('page',{
     // Removes all non-alphanumeric characters from title
     // And make whitespace underscore
     console.log('title', title )
-    return title
-    //.replace(/\s+/g, '_').replace(/\W/g, '');
+    return title.replace(/\s+/g, '_').replace(/\W/g, '');
   }
   
   Page.beforeValidate((pageInstance) => {
@@ -54,13 +53,13 @@ const Page = db.define('page',{
   })
 
     //I need before create hook, it will come as as sting and I need to convert it as an array of strings
-    // Page.beforeCreate(page => {
+    Page.beforeCreate(page => {
   
-    //   if (typeof page.tags === "string") {
-    //     page.tags = page.tags.split(" ").map(str => str.trim());
-    //     console.log("Validated tags", page.tags)
-    //   }
-    // });
+      if (typeof page.tags === "string") {
+        page.tags = page.tags.split(" ").map(str => str.trim());
+        console.log("Validated tags", page.tags)
+      }
+    });
 
 module.exports = Page
 

@@ -11,6 +11,7 @@ const ArticleForm =  (props) => {
     const title = props.title
     const tags = props.tags
     const content = props.content
+    
 
     return (
         <Form onSubmit={handleSubmit} className = "container">
