@@ -1,4 +1,8 @@
-# Bumbuli 1.0 
+
+
+<h1 align="center">
+Bumbuli 1.0 
+</h1>
 
 * A homepage that lists all the articles
 * The ability to create new pages (name, email, title, tags, content)
