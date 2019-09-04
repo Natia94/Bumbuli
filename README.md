@@ -1,7 +1,7 @@
-# Bumbuli 
+# Bumbuli 1.0 :shipit:
 
 * A homepage that lists all the articles
-* The ability to create new pages (name, email, title, tags, content
+* The ability to create new pages (name, email, title, tags, content)
 * Open page for editing an article 
 * list all of the authors
 
